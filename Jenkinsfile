@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -9,12 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/lutris/lutris.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -22,9 +15,9 @@ pipeline {
                         echo "Building Docker image..."
                         docker build -t $DOCKER_IMAGE:$DOCKER_TAG .
                     '''
-                } // closes script
-            } // closes steps
-        } // closes stage
+                }
+            }
+        }
 
         stage('Run Container') {
             steps {
@@ -36,5 +29,6 @@ pipeline {
                 }
             }
         }
-    } // closes stages
-} // closes pipeline
+    }
+}
+
